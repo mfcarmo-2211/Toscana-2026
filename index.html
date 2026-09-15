@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toscana a Dois — Roteiro de Viagem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --terracotta: #A8532F;
+    --terracotta-dark: #7C3B20;
+    --olive: #6E7A4F;
+    --olive-dark: #4E5738;
+    --stone: #F2EAD8;
+    --stone-light: #FAF6EB;
+    --ink: #2C2318;
+    --ink-soft: #5B5145;
+    --gold: #B7873E;
+    --line: #DED0AC;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--stone-light);
+    color:var(--ink);
+    font-family:'Source Sans 3', sans-serif;
+    font-size:16px;
+    line-height:1.6;
+  }
+  h1,h2,h3,.display{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    color:var(--terracotta-dark);
+    margin:0;
+  }
+  a{color:var(--terracotta-dark);}
+  .wrap{max-width:900px;margin:0 auto;padding:0 28px;}
+
+  /* HERO */
+  .hero{
+    position:relative;
+    padding:110px 28px 70px;
+    text-align:center;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(183,135,62,0.18), transparent 55%),
+      radial-gradient(ellipse at 80% 0%, rgba(110,122,79,0.16), transparent 50%),
+      var(--stone);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:0;
+    background-image: repeating-linear-gradient(90deg, rgba(44,35,24,0.035) 0 1px, transparent 1px 90px);
+    pointer-events:none;
+  }
+  .hero .eyebrow{
+    font-size:14px; letter-spacing:.04em; color:var(--olive-dark);
+    font-style:italic; font-family:'Cormorant Garamond', serif; font-size:22px;
+  }
+  .hero h1{
+    font-size:clamp(46px, 8vw, 76px);
+    line-height:0.98;
+    margin:8px 0 14px;
+    letter-spacing:-0.01em;
+  }
+  .hero .dates{
+    font-size:19px; color:var(--ink-soft);
+  }
+  .hero .dates strong{color:var(--terracotta-dark);}
+  .cypress-row{
+    display:flex; justify-content:center; gap:10px; margin-top:34px; opacity:.75;
+  }
+  .cypress-row svg{width:14px;height:44px;}
+
+  /* NAV */
+  nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,246,235,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  nav .wrap{
+    display:flex; gap:4px; overflow-x:auto; padding:12px 28px;
+    scrollbar-width:thin;
+  }
+  nav a{
+    flex:none;
+    text-decoration:none;
+    font-size:14px;
+    color:var(--ink-soft);
+    padding:7px 14px;
+    border-radius:999px;
+    white-space:nowrap;
+    transition:background .15s, color .15s;
+    border:1px solid transparent;
+  }
+  nav a:hover, nav a.active{
+    background:var(--terracotta-dark);
+    color:#fff;
+  }
+
+  section{padding:64px 0;}
+  section + section{border-top:1px solid var(--line);}
+  .section-title{
+    font-size:38px;
+    margin-bottom:6px;
+  }
+  .section-sub{
+    color:var(--ink-soft);
+    font-style:italic;
+    font-family:'Cormorant Garamond', serif;
+    font-size:19px;
+    margin-bottom:34px;
+  }
+
+  /* INFO TABLE */
+  .info-grid{
+    display:grid; grid-template-columns:180px 1fr; gap:0;
+    border-top:1px solid var(--line);
+  }
+  .info-grid .k, .info-grid .v{
+    padding:16px 0; border-bottom:1px solid var(--line);
+  }
+  .info-grid .k{
+    font-weight:600; color:var(--terracotta-dark); font-size:14px;
+    letter-spacing:.02em;
+  }
+  .info-grid .v{color:var(--ink-soft); font-size:15.5px; padding-right:8px;}
+
+  /* DAY TABS */
+  .day-tabs{
+    display:flex; gap:8px; overflow-x:auto; padding-bottom:6px; margin-bottom:36px;
+    border-bottom:1px solid var(--line);
+  }
+  .day-tab{
+    flex:none;
+    background:none; border:none; cursor:pointer;
+    padding:10px 18px 14px;
+    text-align:left;
+    border-bottom:2px solid transparent;
+    font-family:'Source Sans 3', sans-serif;
+    color:var(--ink-soft);
+    transition:border-color .15s, color .15s;
+  }
+  .day-tab .tab-date{
+    display:block;
+    font-family:'Cormorant Garamond', serif;
+    font-size:22px; font-weight:600; color:var(--terracotta-dark); line-height:1.1;
+  }
+  .day-tab .tab-label{
+    display:block; font-size:11.5px; letter-spacing:.03em; margin-top:3px;
+    color:var(--ink-soft);
+  }
+  .day-tab:hover{color:var(--terracotta-dark);}
+  .day-tab.active{border-bottom-color:var(--terracotta);}
+  .day-tab.active .tab-label{color:var(--olive-dark);}
+
+  /* DAYS */
+  .day{
+    display:none;
+    animation:fadein .25s ease;
+  }
+  .day.active{display:block;}
+  @keyframes fadein{ from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;} }
+  .day-title{
+    font-size:24px; color:var(--olive-dark); margin-bottom:20px; font-style:italic;
+    font-family:'Cormorant Garamond', serif;
+  }
+  .stop{
+    display:grid; grid-template-columns:82px 1fr; gap:14px;
+    padding:12px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .stop:last-child{border-bottom:none; padding-bottom:0;}
+  .stop .time{
+    font-size:13px; color:var(--gold); font-weight:600; padding-top:2px;
+  }
+  .stop .name{font-weight:600; color:var(--ink);}
+  .stop .blurb{color:var(--ink-soft); font-size:14.5px; margin-top:2px;}
+  .tag{
+    display:inline-block; font-size:11.5px; padding:1px 8px; border-radius:999px;
+    background:var(--olive); color:#fff; margin-left:8px; vertical-align:middle;
+    font-weight:600;
+  }
+
+  /* CARDS (wineries / restaurants) */
+  .group-title{
+    font-size:22px; color:var(--terracotta-dark); margin:36px 0 14px;
+    font-family:'Cormorant Garamond', serif; font-style:italic;
+  }
+  .group-title:first-child{margin-top:0;}
+  .card-list{display:flex; flex-direction:column; gap:14px;}
+  .card{
+    background:var(--stone);
+    border-left:3px solid var(--terracotta);
+    padding:16px 20px;
+    border-radius:2px;
+  }
+  .card .name-row{
+    display:flex; justify-content:space-between; align-items:baseline; gap:12px; flex-wrap:wrap;
+  }
+  .card .name{font-weight:700; font-size:16.5px;}
+  .card .price{font-size:13.5px; color:var(--gold); font-weight:600; white-space:nowrap;}
+  .card .desc{color:var(--ink-soft); font-size:14.5px; margin-top:5px;}
+  .card.highlight{border-left-color:var(--olive); background:#F4F0DF;}
+  .card.highlight .name::after{
+    content:" · no roteiro"; color:var(--olive-dark); font-weight:500; font-size:12.5px; font-style:italic;
+  }
+
+  /* WEATHER / PACKING */
+  .weather-strip{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:36px;
+  }
+  .weather-box{
+    text-align:center; padding:22px 12px; background:var(--stone); border-radius:4px;
+  }
+  .weather-box .num{
+    font-family:'Cormorant Garamond', serif; font-size:34px; color:var(--terracotta-dark); font-weight:700;
+  }
+  .weather-box .lbl{font-size:13px; color:var(--ink-soft); margin-top:4px;}
+
+  .pack-grid{
+    display:grid; grid-template-columns:1fr 1fr; gap:28px;
+  }
+  .pack-col h4{
+    font-family:'Cormorant Garamond', serif; font-size:19px; color:var(--olive-dark);
+    font-style:italic; margin-bottom:10px; font-weight:600;
+  }
+  .pack-col ul{margin:0; padding-left:18px; color:var(--ink-soft); font-size:14.5px;}
+  .pack-col li{margin-bottom:7px;}
+
+  footer{
+    text-align:center; padding:40px 28px 60px; color:var(--ink-soft); font-size:13.5px;
+  }
+  footer .sign{
+    font-family:'Cormorant Garamond', serif; font-style:italic; font-size:20px; color:var(--terracotta-dark);
+    margin-bottom:6px;
+  }
+
+  @media (max-width:640px){
+    .info-grid{grid-template-columns:130px 1fr;}
+    .pack-grid{grid-template-columns:1fr;}
+    .weather-strip{grid-template-columns:1fr;}
+    .hero{padding:80px 20px 50px;}
+    .day-tab{padding:8px 12px 12px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="eyebrow">Roteiro de viagem</div>
+  <h1>Toscana a&nbsp;Dois</h1>
+  <div class="dates">Val d'Orcia · San Gimignano · Siena &nbsp;—&nbsp; <strong>01 a 06 de outubro</strong></div>
+  <div class="cypress-row">
+    <svg viewBox="0 0 14 44"><path d="M7 0 C11 10 11 20 9 26 L11 26 L11 44 L3 44 L3 26 L5 26 C3 20 3 10 7 0Z" fill="#6E7A4F"/></svg>
+    <svg viewBox="0 0 14 44"><path d="M7 0 C11 10 11 20 9 26 L11 26 L11 44 L3 44 L3 26 L5 26 C3 20 3 10 7 0Z" fill="#4E5738"/></svg>
+    <svg viewBox="0 0 14 44"><path d="M7 0 C11 10 11 20 9 26 L11 26 L11 44 L3 44 L3 26 L5 26 C3 20 3 10 7 0Z" fill="#6E7A4F"/></svg>
+  </div>
+</div>
+
+<nav>
+  <div class="wrap">
+    <a href="#geral">Geral</a>
+    <a href="#roteiro">Roteiro</a>
+    <a href="#vinicolas">Vinícolas</a>
+    <a href="#restaurantes">Restaurantes</a>
+    <a href="#clima">Clima &amp; Mala</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <section id="geral">
+    <h2 class="section-title">Informações Gerais</h2>
+    <div class="section-sub">O essencial da viagem, de relance</div>
+    <div class="info-grid">
+      <div class="k">Chegada</div><div class="v">Roma (FCO) — 01/10, 10:00</div>
+      <div class="k">Partida</div><div class="v">Roma (FCO) — 06/10, 20:00</div>
+      <div class="k">Base</div><div class="v">Val d'Orcia (Toscana), com bate-voltas a Siena e San Gimignano</div>
+      <div class="k">Transporte</div><div class="v">Carro alugado a partir de Roma — necessário devido à área rural</div>
+      <div class="k">Hospedagem</div><div class="v"><strong>Agriturismo Casalpiano</strong> (Pinsuti Cinzia)<br>Località Podere Casalpiano, 28, 53026 Pienza (SI), Itália</div>
+      <div class="k">Sobre o local</div><div class="v">Casale de 1400 dentro do Parque Val d'Orcia (UNESCO), a 1&nbsp;km de Monticchiello e 6&nbsp;km de Pienza. Administrado pela família Pinsuti — Cinzia é elogiada pela hospitalidade e pelo café da manhã caseiro. Piscina externa e jardim. <em>Avise o horário estimado de chegada com antecedência.</em></div>
+    </div>
+  </section>
+
+  <section id="roteiro">
+    <h2 class="section-title">Roteiro Dia a Dia</h2>
+    <div class="section-sub">Seis dias, uma base fixa, deslocamentos curtos</div>
+
+    <div class="day-tabs" id="dayTabs">
+      <button class="day-tab" data-day="1"><span class="tab-date">01/10</span><span class="tab-label">Chegada</span></button>
+      <button class="day-tab" data-day="2"><span class="tab-date">02/10</span><span class="tab-label">Montalcino</span></button>
+      <button class="day-tab" data-day="3"><span class="tab-date">03/10</span><span class="tab-label">Pienza</span></button>
+      <button class="day-tab" data-day="4"><span class="tab-date">04/10</span><span class="tab-label">Montepulciano</span></button>
+      <button class="day-tab" data-day="5"><span class="tab-date">05/10</span><span class="tab-label">San Gimignano · Siena</span></button>
+      <button class="day-tab" data-day="6"><span class="tab-date">06/10</span><span class="tab-label">Partida</span></button>
+    </div>
+
+    <div class="day" data-day="1">
+      <div>
+        <div class="day-title">Chegada e Val d'Orcia</div>
+        <div class="stop"><div class="time">10:00</div><div><div class="name">Chegada em Roma (FCO)</div><div class="blurb">Retirada de carro alugado no aeroporto</div></div></div>
+        <div class="stop"><div class="time">11:30</div><div><div class="name">Roma → Val d'Orcia</div><div class="blurb">Viagem de carro, cerca de 2h de estrada</div></div></div>
+        <div class="stop"><div class="time">14:00</div><div><div class="name">Check-in no Agriturismo Casalpiano</div><div class="blurb">Família Pinsuti — avisar horário de chegada com antecedência</div></div></div>
+        <div class="stop"><div class="time">Tarde</div><div><div class="name">Tarde livre na propriedade</div><div class="blurb">Descanso da viagem, piscina externa e jardim</div></div></div>
+        <div class="stop"><div class="time">Pôr do sol</div><div><div class="name">Cappella della Madonna di Vitaleta</div><div class="blurb">10 min de caminhada; luz especial e menos gente que durante o dia</div></div></div>
+        <div class="stop"><div class="time">Noite</div><div><div class="name">Jantar leve</div><div class="blurb">Na hospedagem ou em San Quirico d'Orcia</div></div></div>
+      </div>
+    </div>
+
+    <div class="day" data-day="2">
+      <div>
+        <div class="day-title">Montalcino e Casanova di Neri</div>
+        <div class="stop"><div class="time">Manhã</div><div><div class="name">Montalcino — centro histórico</div><div class="blurb">Ruas medievais e vista panorâmica</div></div></div>
+        <div class="stop"><div class="time">12:30</div><div><div class="name">Almoço — Taverna Del Grappolo Blu</div><div class="blurb">Bib Gourmand Michelin, tradicional e simples (€€)</div></div></div>
+        <div class="stop"><div class="time">14:30</div><div><div class="name">Deslocamento até a vinícola</div><div class="blurb">~15 min de carro até Castelnuovo dell'Abate</div></div></div>
+        <div class="stop"><div class="time">15:00</div><div><div class="name">Experience Grand Cru — Casanova di Neri <span class="tag">reservado</span></div><div class="blurb">Tour + degustação das cuvées raras, 2h de duração</div></div></div>
+        <div class="stop"><div class="time">17:15</div><div><div class="name">Abbazia di Sant'Antimo</div><div class="blurb">A poucos minutos da vinícola, mesma área de Castelnuovo dell'Abate</div></div></div>
+        <div class="stop"><div class="time">Noite</div><div><div class="name">Jantar — Osteria Acquacheta</div><div class="blurb">Mesas compartilhadas, clima descontraído e caseiro (€€)</div></div></div>
+      </div>
+    </div>
+
+    <div class="day" data-day="3">
+      <div>
+        <div class="day-title">Pienza, San Quirico e Bagno Vignoni</div>
+        <div class="stop"><div class="time">Manhã</div><div><div class="name">Pienza — centro histórico</div><div class="blurb">Cidade natal do Papa Pio II, Duomo e queijos locais</div></div></div>
+        <div class="stop"><div class="time">12:30</div><div><div class="name">Almoço — Trattoria La Chiocciola</div><div class="blurb">Lareira de pedra, ribollita e pappardelle (€€)</div></div></div>
+        <div class="stop"><div class="time">14:30</div><div><div class="name">San Quirico d'Orcia — centro medieval</div><div class="blurb">Horti Leonini (jardim italiano) e Collegiata</div></div></div>
+        <div class="stop"><div class="time">Fim de tarde</div><div><div class="name">Bagno Vignoni</div><div class="blurb">Termas naturais a céu aberto, ótimo para relaxar</div></div></div>
+        <div class="stop"><div class="time">Noite</div><div><div class="name">Jantar — Osteria del Leone</div><div class="blurb">Um dos restaurantes mais antigos da Toscana; pici caseiro e trufas (€€-€€€)</div></div></div>
+      </div>
+    </div>
+
+    <div class="day" data-day="4">
+      <div>
+        <div class="day-title">Montepulciano e arredores</div>
+        <div class="stop"><div class="time">Manhã</div><div><div class="name">Montepulciano — centro histórico</div><div class="blurb">Vino Nobile e vista do Vale de Chiana</div></div></div>
+        <div class="stop"><div class="time">12:30</div><div><div class="name">Almoço — Le Lodge del Vignola</div><div class="blurb">Pratos regionais, ambiente aconchegante (€€)</div></div></div>
+        <div class="stop"><div class="time">15:00</div><div><div class="name">Visita — Avignonesi <span class="tag">reservado</span></div><div class="blurb">Apenas visita e degustação, sem almoço no local; 2h de duração</div></div></div>
+        <div class="stop"><div class="time">17:15</div><div><div class="name">La Foce</div><div class="blurb">Mirante clássico dos ciprestes, luz dourada do fim de tarde</div></div></div>
+        <div class="stop"><div class="time">Noite</div><div><div class="name">Monticchiello — jantar na Osteria La Porta</div><div class="blurb">A 1 km da hospedagem; cucina povera toscana autêntica (€€)</div></div></div>
+      </div>
+    </div>
+
+    <div class="day" data-day="5">
+      <div>
+        <div class="day-title">San Gimignano e Siena</div>
+        <div class="stop"><div class="time">07:30</div><div><div class="name">Val d'Orcia → San Gimignano</div><div class="blurb">~1h40 de carro; saída cedo para aproveitar sem pressa</div></div></div>
+        <div class="stop"><div class="time">09:15</div><div><div class="name">San Gimignano — centro histórico</div><div class="blurb">Cidade das torres medievais, melhor visitada de manhã</div></div></div>
+        <div class="stop"><div class="time">12:00</div><div><div class="name">Almoço — Da Pode</div><div class="blurb">Fazenda rural, cozinha caseira da Signora Lucia, Bib Gourmand Michelin (€€)</div></div></div>
+        <div class="stop"><div class="time">13:00</div><div><div class="name">San Gimignano → Siena</div><div class="blurb">~40 min de carro</div></div></div>
+        <div class="stop"><div class="time">14:00</div><div><div class="name">Piazza del Campo e Duomo de Siena</div><div class="blurb">A praça em concha mais famosa da Itália</div></div></div>
+        <div class="stop"><div class="time">Noite</div><div><div class="name">Jantar — Antica Trattoria Papei</div><div class="blurb">Tradicional, na Piazza del Mercato; pici e bistecca fiorentina (€€)</div></div></div>
+      </div>
+    </div>
+
+    <div class="day" data-day="6">
+      <div>
+        <div class="day-title">Retorno e partida</div>
+        <div class="stop"><div class="time">Manhã</div><div><div class="name">Val d'Orcia → Roma</div><div class="blurb">Viagem de carro, cerca de 2h de estrada</div></div></div>
+        <div class="stop"><div class="time">16:30</div><div><div class="name">Devolução do carro alugado</div><div class="blurb">Margem de segurança antes do voo</div></div></div>
+        <div class="stop"><div class="time">20:00</div><div><div class="name">Voo de partida (FCO)</div><div class="blurb">Fim da viagem</div></div></div>
+      </div>
+    </div>
+
+  </section>
+
+  <section id="vinicolas">
+    <h2 class="section-title">Vinícolas Recomendadas</h2>
+    <div class="section-sub">Reservem com antecedência — outubro é temporada de colheita</div>
+
+    <div class="group-title">Montalcino · Brunello</div>
+    <div class="card-list">
+      <div class="card highlight">
+        <div class="name-row"><span class="name">Casanova di Neri — Experience Grand Cru</span></div>
+        <div class="desc">Tour + degustação de cuvées raras, 2h de duração. Uma das vinícolas mais premiadas de Montalcino — o Brunello Tenuta Nuova foi eleito melhor vinho do mundo pela Wine Spectator em 2006. Dia 2, 15h.</div>
+      </div>
+      <div class="card">
+        <div class="name-row"><span class="name">Podere Il Cocco</span></div>
+        <div class="desc">Vinícola familiar próxima a Castelnuovo dell'Abate. Recepção pelos próprios donos, almoço típico toscano — boa opção para uma próxima visita.</div>
+      </div>
+      <div class="card">
+        <div class="name-row"><span class="name">Capanna</span></div>
+        <div class="desc">Vinícola familiar tradicional, tours guiados.</div>
+      </div>
+      <div class="card">
+        <div class="name-row"><span class="name">Il Palazzone</span></div>
+        <div class="desc">A 5 min do centro de Montalcino; degustação no salão de barricas. Reservar por telefone/e-mail.</div>
+      </div>
+    </div>
+
+    <div class="group-title">Montepulciano · Vino Nobile</div>
+    <div class="card-list">
+      <div class="card highlight">
+        <div class="name-row"><span class="name">Avignonesi</span></div>
+        <div class="desc">Uma das vinícolas mais tradicionais da região, visual deslumbrante. Apenas visita e degustação (sem almoço no local). Dia 4, 15h.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="restaurantes">
+    <h2 class="section-title">Restaurantes Recomendados</h2>
+    <div class="section-sub">Tradicionais e acolhedores — preço indicado ao lado</div>
+
+    <div class="group-title">Pienza</div>
+    <div class="card-list">
+      <div class="card"><div class="name-row"><span class="name">Trattoria La Chiocciola</span><span class="price">€€</span></div><div class="desc">Clássica, lareira de pedra, ribollita e pappardelle.</div></div>
+      <div class="card"><div class="name-row"><span class="name">Pizzeria Pummaro</span><span class="price">€</span></div><div class="desc">Simples e informal, ótima pizza.</div></div>
+    </div>
+
+    <div class="group-title">San Quirico d'Orcia</div>
+    <div class="card-list">
+      <div class="card"><div class="name-row"><span class="name">Trattoria Osenna</span><span class="price">€€</span></div><div class="desc">Tradicional, famosa pelos segundos pratos de carne.</div></div>
+      <div class="card"><div class="name-row"><span class="name">Locanda di Fonte alla Vena</span><span class="price">€€</span></div><div class="desc">Aconchegante, prédio antigo restaurado.</div></div>
+    </div>
+
+    <div class="group-title">Bagno Vignoni</div>
+    <div class="card-list">
+      <div class="card"><div class="name-row"><span class="name">Osteria del Leone</span><span class="price">€€-€€€</span></div><div class="desc">Um dos restaurantes mais antigos da Toscana; pici caseiro e trufas.</div></div>
+      <div class="card"><div class="name-row"><span class="name">Tramanda' Ristorante Vineria</span><span class="price">€€</span></div><div class="desc">Ambiente intimista.</div></div>
+    </div>
+
+    <div class="group-title">Montalcino</div>
+    <div class="card-list">
+      <div class="card highlight"><div class="name-row"><span class="name">Taverna Del Grappolo Blu</span><span class="price">€€</span></div><div class="desc">Bib Gourmand Michelin, tradicional e simples. Almoço do dia 2.</div></div>
+      <div class="card highlight"><div class="name-row"><span class="name">Osteria Acquacheta</span><span class="price">€€</span></div><div class="desc">Mesas compartilhadas, clima descontraído e caseiro. Jantar do dia 2.</div></div>
+      <div class="card"><div class="name-row"><span class="name">Boccon di Vino</span><span class="price">€€-€€€</span></div><div class="desc">Muito bem avaliado, terraço bonito. Reservar.</div></div>
+    </div>
+
+    <div class="group-title">Montepulciano &amp; Monticchiello</div>
+    <div class="card-list">
+      <div class="card highlight"><div class="name-row"><span class="name">Le Lodge del Vignola</span><span class="price">€€</span></div><div class="desc">Pratos regionais, ambiente aconchegante. Almoço do dia 4.</div></div>
+      <div class="card highlight"><div class="name-row"><span class="name">Osteria La Porta</span><span class="price">€€</span></div><div class="desc">Monticchiello — cucina povera toscana autêntica, vista panorâmica do vale. Jantar do dia 4.</div></div>
+      <div class="card"><div class="name-row"><span class="name">La Grotta</span><span class="price">€€€</span></div><div class="desc">Michelin, em frente ao Templo de San Biagio.</div></div>
+    </div>
+
+    <div class="group-title">Siena</div>
+    <div class="card-list">
+      <div class="card"><div class="name-row"><span class="name">Antica Trattoria Papei</span><span class="price">€€</span></div><div class="desc">Tradicional, na Piazza del Mercato; pici, pappardelle ao javali, bistecca fiorentina.</div></div>
+      <div class="card"><div class="name-row"><span class="name">Osteria Il Vinaio</span><span class="price">€€</span></div><div class="desc">Muito respeitado por locais e turistas.</div></div>
+    </div>
+
+    <div class="group-title">San Gimignano</div>
+    <div class="card-list">
+      <div class="card"><div class="name-row"><span class="name">Da Pode</span><span class="price">€€</span></div><div class="desc">Fazenda rural, cozinha da Signora Lucia, Bib Gourmand Michelin.</div></div>
+      <div class="card"><div class="name-row"><span class="name">Lo Spuntino</span><span class="price">€</span></div><div class="desc">Simples e rápido, ótimo entre passeios.</div></div>
+    </div>
+  </section>
+
+  <section id="clima">
+    <h2 class="section-title">Clima e o que Levar</h2>
+    <div class="section-sub">Médias históricas para a primeira semana de outubro</div>
+
+    <div class="weather-strip">
+      <div class="weather-box"><div class="num">18–26°</div><div class="lbl">Dias</div></div>
+      <div class="weather-box"><div class="num">10–14°</div><div class="lbl">Noites e manhãs</div></div>
+      <div class="weather-box"><div class="num">☔</div><div class="lbl">Chuva passageira possível</div></div>
+    </div>
+
+    <div class="pack-grid">
+      <div class="pack-col">
+        <h4>Roupas em camadas</h4>
+        <ul>
+          <li>Camisetas/blusas leves de manga curta para o dia</li>
+          <li>Casaco leve ou moletom para manhãs e noites frias</li>
+          <li>Jaqueta corta-vento ou impermeável leve</li>
+          <li>Cachecol ou lenço leve para as noites</li>
+        </ul>
+      </div>
+      <div class="pack-col">
+        <h4>Calçados</h4>
+        <ul>
+          <li>Tênis ou sapatos confortáveis para caminhada</li>
+          <li>Um calçado mais elegante para jantares e vinícolas</li>
+          <li>Evitar saltos altos — ruas de paralelepípedo</li>
+        </ul>
+      </div>
+      <div class="pack-col">
+        <h4>Extras úteis</h4>
+        <ul>
+          <li>Óculos de sol e protetor solar leve</li>
+          <li>Bolsa ou mochila pequena para os passeios</li>
+          <li>Guarda-chuva compacto ou capa de chuva</li>
+        </ul>
+      </div>
+      <div class="pack-col">
+        <h4>Antes de fazer a mala</h4>
+        <ul>
+          <li>São médias históricas — confira a previsão real 10-14 dias antes</li>
+          <li>Reservem jantares e vinícolas com antecedência</li>
+          <li>Avisem horário de chegada ao Agriturismo Casalpiano</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="sign">Buon viaggio</div>
+  Roteiro preparado para a viagem de 01 a 06 de outubro
+</footer>
+
+<script>
+  // active nav highlight on scroll
+  const links = document.querySelectorAll('nav a');
+  const sections = Array.from(links).map(l => document.querySelector(l.getAttribute('href')));
+  function onScroll(){
+    let idx = 0;
+    const y = window.scrollY + 140;
+    sections.forEach((s,i) => { if(s && s.offsetTop <= y) idx = i; });
+    links.forEach((l,i) => l.classList.toggle('active', i === idx));
+  }
+  document.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  // day tabs
+  const dayTabs = document.querySelectorAll('.day-tab');
+  const dayPanels = document.querySelectorAll('.day[data-day]');
+  function showDay(n){
+    dayTabs.forEach(t => t.classList.toggle('active', t.dataset.day === String(n)));
+    dayPanels.forEach(p => p.classList.toggle('active', p.dataset.day === String(n)));
+  }
+  dayTabs.forEach(t => t.addEventListener('click', () => {
+    showDay(t.dataset.day);
+    document.getElementById('roteiro').scrollIntoView({behavior:'smooth', block:'start'});
+  }));
+  showDay(1);
+</script>
+
+</body>
+</html>
